@@ -1,16 +1,9 @@
-# gs3_test
+# GS3 Test
 
-A new Flutter project.
+Technical challenge for GS3 Technology.
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The idea was to follow a Figma prototype. The main goal was to be exactly the same as Figma.
+I used Flutter and Dart for this project. I chose the MVC architecture pattern because I thought it was ideal, 
+considering the small scale of the application and the lack of need for a robust architecture such as layers, for example.
