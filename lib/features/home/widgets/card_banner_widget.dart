@@ -61,41 +61,47 @@ class _CardBannerWidgetState extends State<CardBannerWidget> {
       ),
       child: Column(
         children: [
-          Row(
-            children: [
-              Container(
-                color: Colors.grey.shade300,
-                height: 65,
-                width: 100,
-              ),
-              const SizedBox(width: 20),
-              Column(
-                children: [
-                  Text(
-                    isNumbersVisible ? widget.cardNumber : widget.cardNumber.cardObscureNumber(),
-                    style: const TextStyle(color: Colors.white, fontSize: 18),
+          Expanded(
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: AspectRatio(
+                    aspectRatio: 1 / 0.6,
+                    child: Container(
+                      color: Colors.grey.shade300,
+                    ),
                   ),
-                  Text(
-                    widget.cardFlag,
-                    style: const TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ],
-              ),
-              const Spacer(),
-              IconButton(
-                color: Colors.white,
-                onPressed: didTapViewCardNumbers,
-                icon: Icon(
-                  Icons.remove_red_eye_outlined,
-                  color: widget.index % 2 == 0 ? Colors.blue : Colors.grey,
                 ),
-              )
-            ],
+                const SizedBox(width: 20),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      isNumbersVisible ? widget.cardNumber : widget.cardNumber.cardObscureNumber(),
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                    Text(
+                      widget.cardFlag,
+                      style: const TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                IconButton(
+                  color: Colors.white,
+                  onPressed: didTapViewCardNumbers,
+                  icon: Icon(
+                    Icons.remove_red_eye_outlined,
+                    color: widget.index % 2 == 0 ? Colors.blue : Colors.grey,
+                  ),
+                )
+              ],
+            ),
           ),
           Divider(
             color: widget.index % 2 == 0 ? Colors.indigo.shade700 : Colors.blueGrey.shade700,
           ),
-          const Spacer(),
           Row(
             children: [
               Column(

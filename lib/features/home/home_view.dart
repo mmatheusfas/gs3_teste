@@ -41,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
             children: [
               Container(
                 width: double.infinity,
-                height: 200,
+                height: sizeOf.height * .3,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/gs3_logo.png'),
@@ -68,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 Divider(thickness: 2, color: Colors.white.withOpacity(0.4)),
                 SizedBox(
-                  height: sizeOf.height * .2,
+                  height: sizeOf.height < 534 ? sizeOf.height * .3 : sizeOf.height * .2,
                   child: ListView.builder(
                     itemCount: homeController.cards.length,
                     scrollDirection: Axis.horizontal,

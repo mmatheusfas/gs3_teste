@@ -24,7 +24,7 @@ class DefaultAppBar extends StatelessWidget {
             children: [
               TextSpan(text: 'Olá,'),
               TextSpan(
-                text: ' Cliente!',
+                text: ' Cliente',
                 style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ],

@@ -12,18 +12,21 @@ class FavoritesCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
       child: Column(
         children: [
-          Container(
-            height: 80,
-            width: 80,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade50,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Center(
-              child: Icon(
-                icon,
-                color: Colors.indigo,
-                size: 35,
+          Expanded(
+            child: AspectRatio(
+              aspectRatio: 1 / 1,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade50,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Center(
+                  child: Icon(
+                    icon,
+                    color: Colors.indigo,
+                    size: 35,
+                  ),
+                ),
               ),
             ),
           ),
