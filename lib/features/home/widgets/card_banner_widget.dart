@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:gs3_test/support/extensions/double_extension.dart';
 import 'package:gs3_test/support/extensions/string_extensions.dart';
@@ -25,7 +24,8 @@ class CardBannerWidget extends StatefulWidget {
 
 class _CardBannerWidgetState extends State<CardBannerWidget> {
   bool isNumbersVisible = false;
-  void didTapViewCardNumbers() {
+
+  void _didTapViewCardNumbers() {
     setState(() {
       isNumbersVisible = !isNumbersVisible;
     });
@@ -83,14 +83,18 @@ class _CardBannerWidgetState extends State<CardBannerWidget> {
                     ),
                     Text(
                       widget.cardFlag,
-                      style: const TextStyle(color: Colors.white, fontSize: 18),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                   ],
                 ),
                 const Spacer(),
                 IconButton(
                   color: Colors.white,
-                  onPressed: didTapViewCardNumbers,
+                  onPressed: _didTapViewCardNumbers,
                   icon: Icon(
                     Icons.remove_red_eye_outlined,
                     color: widget.index % 2 == 0 ? Colors.blue : Colors.grey,
@@ -105,14 +109,22 @@ class _CardBannerWidgetState extends State<CardBannerWidget> {
           Row(
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
                     'Limite disponível',
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                    ),
                   ),
                   Text(
                     'R\$ ${widget.availableLimit.doubleToStringFormated()}',
-                    style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -124,7 +136,7 @@ class _CardBannerWidgetState extends State<CardBannerWidget> {
                     'Melhor dia de compra',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 12,
+                      fontSize: 10,
                     ),
                   ),
                   Text(

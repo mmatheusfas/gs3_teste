@@ -11,7 +11,7 @@ class BottomNavigationView extends StatefulWidget {
 class _BottomNavigationViewState extends State<BottomNavigationView> {
   int currentIndex = 0;
 
-  void changeCurrentIndex(int index) {
+  void _changeCurrentIndex(int index) {
     setState(() {
       currentIndex = index;
     });
@@ -23,7 +23,6 @@ class _BottomNavigationViewState extends State<BottomNavigationView> {
       bottomNavigationBar: Container(
         height: 80,
         decoration: BoxDecoration(
-          color: Colors.black,
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(30),
             topLeft: Radius.circular(30),
@@ -40,15 +39,8 @@ class _BottomNavigationViewState extends State<BottomNavigationView> {
         child: ClipRRect(
           borderRadius: const BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
           child: BottomNavigationBar(
-            selectedItemColor: Colors.indigo,
-            unselectedItemColor: Colors.grey,
-            selectedLabelStyle: const TextStyle(color: Colors.indigo),
-            unselectedLabelStyle: const TextStyle(color: Colors.grey),
-            showUnselectedLabels: true,
-            type: BottomNavigationBarType.shifting,
-            elevation: 2,
             currentIndex: currentIndex,
-            onTap: changeCurrentIndex,
+            onTap: _changeCurrentIndex,
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
               BottomNavigationBarItem(icon: Icon(Icons.text_snippet_outlined), label: 'Fatura'),

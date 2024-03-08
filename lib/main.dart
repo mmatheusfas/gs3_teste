@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gs3_test/features/bottom_navigation/bottom_navigation_view.dart';
+import 'package:gs3_test/support/theme/app_theme.dart';
 
 void main() {
   runApp(
-    const MaterialApp(
+    MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BottomNavigationView(),
+      theme: AppTheme.appTheme,
+      home: const BottomNavigationView(),
     ),
   );
 }

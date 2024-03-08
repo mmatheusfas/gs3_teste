@@ -20,7 +20,7 @@ class SectionHeader extends StatelessWidget {
         Text(
           sectionTitle,
           style: const TextStyle(
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.w500,
             color: Colors.black,
           ),
@@ -30,7 +30,7 @@ class SectionHeader extends StatelessWidget {
             Text(
               actionTitle,
               style: const TextStyle(
-                fontSize: 12,
+                fontSize: 10,
                 color: Colors.black,
               ),
             ),

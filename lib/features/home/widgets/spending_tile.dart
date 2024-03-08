@@ -49,7 +49,10 @@ class SpendingTile extends StatelessWidget {
                       child: Center(
                         child: Text(
                           '!',
-                          style: TextStyle(color: Colors.white, fontSize: 8),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 8,
+                          ),
                         ),
                       ),
                     ),
@@ -63,11 +66,17 @@ class SpendingTile extends StatelessWidget {
               children: [
                 Text(
                   expenseTitle,
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 Text(
                   date,
-                  style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 12,
+                  ),
                 ),
               ],
             ),
@@ -77,13 +86,19 @@ class SpendingTile extends StatelessWidget {
               children: [
                 Text(
                   'R\$$totalPrice',
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 Visibility(
                   visible: installments != null,
                   child: Text(
                     'em ${installments}x',
-                    style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               ],

@@ -41,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
             children: [
               Container(
                 width: double.infinity,
-                height: sizeOf.height * .3,
+                height: sizeOf.height * .25,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/gs3_logo.png'),

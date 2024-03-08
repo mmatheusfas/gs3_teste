@@ -31,7 +31,10 @@ class FavoritesCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(name),
+          Text(
+            name,
+            style: const TextStyle(fontSize: 12),
+          ),
         ],
       ),
     );
