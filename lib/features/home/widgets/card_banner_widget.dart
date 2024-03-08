@@ -67,7 +67,7 @@ class _CardBannerWidgetState extends State<CardBannerWidget> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: AspectRatio(
-                    aspectRatio: 1 / 0.6,
+                    aspectRatio: 0.9 / 0.6,
                     child: Container(
                       color: Colors.grey.shade300,
                     ),

@@ -117,7 +117,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 const SizedBox(height: 12),
                 SizedBox(
-                  height: sizeOf.height * .27,
+                  height: sizeOf.height * .3,
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: [
