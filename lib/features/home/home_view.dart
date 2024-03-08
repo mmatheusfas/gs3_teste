@@ -1,42 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:gs3_test/features/home/home_controller.dart';
 import 'package:gs3_test/features/home/widgets/card_banner_widget.dart';
 import 'package:gs3_test/features/home/widgets/default_app_bar.dart';
 import 'package:gs3_test/features/home/widgets/favorites_card.dart';
 import 'package:gs3_test/features/home/widgets/section_header.dart';
 import 'package:gs3_test/features/home/widgets/spending_tile.dart';
-import 'package:gs3_test/models/credit_card.dart';
-import 'package:gs3_test/models/expense.dart';
 import 'package:gs3_test/support/components/gradient_background.dart';
 
-import '../../models/favorite.dart';
-
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final homeController = HomeController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    homeController.filterExpenses();
+  }
+
+  void didTapMenu() {
+    _scaffoldKey.currentState?.openDrawer();
+  }
 
   @override
   Widget build(BuildContext context) {
     var sizeOf = MediaQuery.sizeOf(context);
 
-    final List<CreditCard> cards = [
-      CreditCard(cardNumber: '1234 5678', flag: 'GS3 TEC', availableLimit: 7867.80, bestDayForShopping: 20),
-      CreditCard(cardNumber: '4343 7899', flag: 'GS3 TEC', availableLimit: 8000, bestDayForShopping: 26),
-    ];
-
-    final List<Favorite> favorites = [
-      Favorite(icon: Icons.credit_card_outlined, name: 'Cartão virtual'),
-      Favorite(icon: Icons.credit_score_outlined, name: 'Cartão adicional'),
-      Favorite(icon: Icons.shield_outlined, name: 'Seguros'),
-      Favorite(icon: Icons.mail_outline_outlined, name: 'Pacotes'),
-    ];
-
-    final List<Expense> expenses = [
-      Expense(name: 'Apple', totalPrice: 545.99, dateTime: '05/09 às 22:35', installments: 12),
-      Expense(name: 'Uber*Uber*Trip', totalPrice: 12.96, dateTime: '05/09 às 15:25'),
-      Expense(name: 'Carrefour', totalPrice: 349.76, dateTime: '03/09 às 9:34', installments: 3),
-      Expense(name: 'Academia', totalPrice: 139.99, dateTime: '03/09 às 8:00'),
-    ];
-
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: Drawer(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 12),
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 200,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/gs3_logo.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              const Divider(),
+            ],
+          ),
+        ),
+      ),
       body: GradientBackground(
         child: SingleChildScrollView(
           child: Padding(
@@ -45,36 +63,29 @@ class HomeView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 60),
-                const DefaultAppBar(),
-                const SizedBox(height: 8),
-                Divider(
-                  thickness: 2,
-                  color: Colors.white.withOpacity(0.4),
+                DefaultAppBar(
+                  onTapMenu: didTapMenu,
                 ),
-                const SizedBox(height: 8),
+                Divider(thickness: 2, color: Colors.white.withOpacity(0.4)),
                 SizedBox(
-                  height: sizeOf.height * .21,
+                  height: sizeOf.height * .2,
                   child: ListView.builder(
-                    itemCount: cards.length,
+                    itemCount: homeController.cards.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (_, index) {
-                      final creditCard = cards[index];
+                      final creditCard = homeController.cards[index];
 
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CardBannerWidget(
-                          cardNumber: creditCard.cardNumber,
-                          cardFlag: creditCard.flag,
-                          availableLimit: creditCard.availableLimit,
-                          bestDayForBuying: creditCard.bestDayForShopping,
-                        ),
+                      return CardBannerWidget(
+                        cardNumber: creditCard.cardNumber,
+                        cardFlag: creditCard.flag,
+                        availableLimit: creditCard.availableLimit,
+                        bestDayForBuying: creditCard.bestDayForShopping,
+                        index: index,
                       );
                     },
                   ),
                 ),
-                Divider(
-                  color: Colors.white.withOpacity(0.5),
-                ),
+                Divider(color: Colors.white.withOpacity(0.5)),
                 const SizedBox(height: 12),
                 const SectionHeader(
                   sectionTitle: 'Meus favoritos',
@@ -84,10 +95,10 @@ class HomeView extends StatelessWidget {
                 SizedBox(
                   height: sizeOf.height * .15,
                   child: ListView.builder(
-                    itemCount: favorites.length,
+                    itemCount: homeController.favorites.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (_, index) {
-                      final favorite = favorites[index];
+                      final favorite = homeController.favorites[index];
                       return FavoritesCard(
                         icon: favorite.icon,
                         name: favorite.name,
@@ -105,55 +116,73 @@ class HomeView extends StatelessWidget {
                   actionIcon: Icons.arrow_forward_ios_rounded,
                 ),
                 const SizedBox(height: 12),
-                const Text(
-                  'Hoje, 05 Set',
-                  style: TextStyle(
-                    color: Colors.lightBlue,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 12),
                 SizedBox(
-                  height: sizeOf.height * .18,
-                  child: ListView.separated(
+                  height: sizeOf.height * .27,
+                  child: ListView(
                     padding: EdgeInsets.zero,
-                    itemBuilder: (_, index) {
-                      final expense = expenses[index];
+                    children: [
+                      const Text(
+                        'Hoje, 05 Set',
+                        style: TextStyle(
+                          color: Colors.lightBlue,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        height: homeController.dailyExpenses.length * 75,
+                        child: ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.zero,
+                          itemCount: homeController.dailyExpenses.length,
+                          itemBuilder: (_, index) {
+                            final expense = homeController.dailyExpenses[index];
 
-                      return SpendingTile(
-                        expenseTitle: expense.name,
-                        date: expense.dateTime,
-                        totalPrice: expense.totalPrice,
-                        installments: expense.installments,
-                      );
-                    },
-                    separatorBuilder: (_, __) => Divider(
-                      color: Colors.grey.withOpacity(.2),
-                    ),
-                    itemCount: expenses.length,
+                            return SpendingTile(
+                              expenseTitle: expense.name,
+                              date: expense.dateTime,
+                              totalPrice: expense.totalPrice,
+                              installments: expense.installments,
+                            );
+                          },
+                          separatorBuilder: (_, __) => Divider(
+                            color: Colors.grey.withOpacity(.2),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      const Text(
+                        '03 Set',
+                        style: TextStyle(
+                          color: Colors.lightBlue,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        height: homeController.olderExpenses.length * 75,
+                        child: ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.zero,
+                          itemCount: homeController.olderExpenses.length,
+                          itemBuilder: (_, index) {
+                            final expense = homeController.olderExpenses[index];
+
+                            return SpendingTile(
+                              expenseTitle: expense.name,
+                              date: expense.dateTime,
+                              totalPrice: expense.totalPrice,
+                              installments: expense.installments,
+                            );
+                          },
+                          separatorBuilder: (_, __) => Divider(
+                            color: Colors.grey.withOpacity(.2),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 12),
-                const Text(
-                  '03 Set',
-                  style: TextStyle(
-                    color: Colors.lightBlue,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                /* SizedBox(
-                  height: sizeOf.height * .18,
-                  child: ListView.separated(
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (_, __) {
-                      return const SpendingTile();
-                    },
-                    separatorBuilder: (_, __) => const Divider(),
-                    itemCount: 4,
-                  ),
-                ), */
               ],
             ),
           ),

@@ -9,7 +9,7 @@ class FavoritesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
       child: Column(
         children: [
           Container(
